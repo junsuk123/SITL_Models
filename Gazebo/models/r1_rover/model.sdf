@@ -15,13 +15,50 @@
         </inertia>
       </inertial>
       <collision name='odom_fixed_joint_lump__base_link_collision'>
-        <pose>0 0 0.15 0 -0 0</pose>
+        <pose>0 0 0.075 0 -0 0</pose>
         <geometry>
           <box>
-            <size>0.4 0.4 0.25</size>
+            <size>0.40 0.40 0.12</size>
           </box>
         </geometry>
       </collision>
+      <collision name='aruco_landing_pad_collision'>
+        <pose>0 0 0.1675 0 -0 0</pose>
+        <geometry>
+          <box>
+            <size>1.20 1.20 0.035</size>
+          </box>
+        </geometry>
+        <max_contacts>16</max_contacts>
+        <surface>
+          <friction>
+            <ode>
+              <mu>1.2</mu>
+              <mu2>1.2</mu2>
+            </ode>
+          </friction>
+          <bounce>
+            <restitution_coefficient>0</restitution_coefficient>
+            <threshold>1000000</threshold>
+          </bounce>
+          <contact>
+            <ode>
+              <min_depth>0.001</min_depth>
+              <max_vel>0.02</max_vel>
+              <kp>1000000</kp>
+              <kd>100</kd>
+            </ode>
+          </contact>
+        </surface>
+      </collision>
+      <sensor name='landing_pad_contact' type='contact'>
+        <always_on>true</always_on>
+        <update_rate>100</update_rate>
+        <topic>/landing_pad/contact</topic>
+        <contact>
+          <collision>aruco_landing_pad_collision</collision>
+        </contact>
+      </sensor>
       <visual name='odom_fixed_joint_lump__base_link_visual'>
         <pose>0 0 0 0 -0 0</pose>
         <geometry>
